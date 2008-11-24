@@ -1,0 +1,11 @@
+10 PRINT "Go to http://imdb.com or similar site."
+20 PRINT "Search for some good movies to watch."
+30 PRINT "Go to http://mininova.org or other p2p site."
+40 PRINT "Find a movie."
+50 PRINT "Download a movie using a p2p software of your choice."
+60 PRINT "Watch a movie."
+70 GOTO 10
+
+Sounds familiar?
+
+This projects aims to save you some time by facilitating first 4 points.
