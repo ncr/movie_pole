@@ -1,7 +1,3 @@
 pl:
-
-  movie: 
-    Film
-    
-  movies: 
-    Filmy
+  movie: Film  
+  movies: Filmy

@@ -1,0 +1,16 @@
+!!! XML
+!!!
+%html{html_attrs("en-US")}
+  %head
+    %title Movie Pole
+    = stylesheet_link_tag "application"
+    = javascript_include_tag :defaults
+  %body
+    #doc
+      #hd
+        %h1 Movie Pole
+
+      #bd
+        = yield
+
+      #ft
