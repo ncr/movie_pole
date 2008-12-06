@@ -1,0 +1,10 @@
+IMDB backend to Movie Pole (IMRb 0.0 - Jakub Kuźma 2008)
+
+usage:
+
+IMDB.new.movies(:year => 2008)
+IMDB.new.movies(:year => 1999..2003)
+IMDB.new.movies(:rating => 6) # with rating >= 6
+IMDB.new.movies(:rating => 6..8) # with rating between 6 and 8
+IMDB.new.movies(:votes => 1000) # with number of votes >= 1000
+IMDB.new.movies(:keywords => "beer monkey") # including keywords "beer" and "monkey"
