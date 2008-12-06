@@ -38,7 +38,7 @@ class IMDB
   protected
 
   def parse_list_options(options)
-    params = ["tvm=only"]
+    params = ["tvm=off", "vid=off", "tv=off", "ep=off"]
 
     # parse year option
     case options[:year]
@@ -71,6 +71,6 @@ class IMDB
   end
 
   def sanitize_title(title)
-    title.gsub(/\(\d{4}\)|\(TV\)/, "").strip.squeeze(" ")
+    title.gsub(/\(\d{4}\)/, "").strip.squeeze(" ")
   end
 end

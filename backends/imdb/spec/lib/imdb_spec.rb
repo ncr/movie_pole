@@ -8,7 +8,10 @@ describe IMDB, "#parse_list_options" do
 
   it "should contain default params" do
     params = @imdb.parse_list_options({})
-    params.should include("tvm=only")
+    params.should include("tvm=off")
+    params.should include("vid=off")
+    params.should include("tv=off")
+    params.should include("ep=off")
   end
 
   it "should parse year option" do
@@ -66,11 +69,6 @@ describe IMDB, "using babylon.html fixture" do
     result.should include(:votes => "9678")
     result.should include(:uri => "http://www.imdb.com/title/tt0364970/")
   end
-
-  it "should call open with proper uri" do
-    @imdb.should_receive(:open).with("http://www.imdb.com/List?tvm=only&&words=babylon", @headers).and_return(@babylon)
-    @imdb.movies(:keywords => "babylon")
-  end
 end
 
 describe IMDB, "using notfound.html fixture" do
@@ -102,35 +100,35 @@ describe IMDB, "using monkeys.html fixture" do
     results.count.should == 5
 
     result = results[0]
-    result.should include(:title => "Dana Carvey: Squatting Monkeys Tell No Lies")
+    result.should include(:title => "Dana Carvey: Squatting Monkeys Tell No Lies (TV)")
     result.should include(:year => "2008")
     result.should include(:rating => "6.7")
     result.should include(:votes => "55")
     result.should include(:uri => "http://www.imdb.com/title/tt1251752/")
 
     result = results[1]
-    result.should include(:title => "Monkey, Monkey, Bottle of Beer, How Many Monkeys Have We Here?")
+    result.should include(:title => "Monkey, Monkey, Bottle of Beer, How Many Monkeys Have We Here? (TV)")
     result.should include(:year => "1974")
     result.should_not have_key(:rating)
     result.should_not have_key(:votes)
     result.should include(:uri => "http://www.imdb.com/title/tt0211524/")
 
     result = results[2]
-    result.should include(:title => "Monkeys")
+    result.should include(:title => "Monkeys (TV)")
     result.should include(:year => "1989")
     result.should include(:rating => "6.6")
     result.should include(:votes => "5")
     result.should include(:uri => "http://www.imdb.com/title/tt0338260/")
 
     result = results[3]
-    result.should include(:title => "Snow Monkeys")
+    result.should include(:title => "Snow Monkeys (TV)")
     result.should include(:year => "1994")
     result.should_not have_key(:rating)
     result.should_not have_key(:votes)
     result.should include(:uri => "http://www.imdb.com/title/tt0220050/")
 
     result = results[4]
-    result.should include(:title => "Uncle Gus in: For the Love of Monkeys")
+    result.should include(:title => "Uncle Gus in: For the Love of Monkeys (TV)")
     result.should include(:year => "1999")
     result.should_not have_key(:rating)
     result.should_not have_key(:votes)
