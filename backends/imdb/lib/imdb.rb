@@ -6,8 +6,7 @@ class IMDB
   HEADERS = { "User-Agent" => "IMRb/0.0" }
 
   def movies(options = {})
-    options.merge!(:only => :movie)
-    power_search(options)
+    power_search(options.merge(:only => :movie))
   end
 
   def power_search(options)
@@ -83,7 +82,7 @@ class IMDB
     if options.has_key? :only and options.has_key? :except
       raise ArgumentError, "using :except and :only at the same time is not allowed"
     elsif options.has_key? :only
-      types &= [options[:only]].flatten
+      types &= [options[:only]].flatten # because to_a gives a warning
     elsif options.has_key? :except
       types -= [options[:except]].flatten
     end
