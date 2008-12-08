@@ -1,0 +1,5 @@
+usage:
+
+PirateBay.new.search(:title => "Godfather part 2")
+PirateBay.new.search(:title => "Godfather part 2", :sort_by => :seeders) #default is leechers
+# :sort_by => :seeders || :name || :size
