@@ -1,2 +1,18 @@
 %h2= I18n.t(:movies)
 
+= link_to 'Fetch latest hits', fetch_movies_path
+
+%p
+
+- @movies.each do |movie|
+  %label{ :for => 'Title'}
+    Title:
+  = link_to movie.title, movie_path(movie)
+  %br
+  %label{ :for => 'Imdb Id'}
+    IMDB Id:
+  = link_to movie.imdb_id, imdb_url(movie.imdb_id)
+  %br
+  %br
+
+
