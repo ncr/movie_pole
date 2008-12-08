@@ -1,13 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + "/../spec_helper")
 
-describe IMDB, "#parse_power_search_options" do
+describe IMDB::PowerSearch, "#parse_search_options" do
   before do
-    IMDB.send(:public, :parse_power_search_options)
-    @imdb = IMDB.new
+    IMDB::PowerSearch.send(:public, :parse_search_options)
+    @power_search = IMDB::PowerSearch.new
   end
 
   it "should contain default params" do
-    params = @imdb.parse_power_search_options({})
+    params = @power_search.parse_search_options({})
     params.should include("tvm=on")
     params.should include("vid=on")
     params.should include("tv=on")
@@ -15,49 +15,48 @@ describe IMDB, "#parse_power_search_options" do
   end
 
   it "should parse year option" do
-    params = @imdb.parse_power_search_options(:year => 2008)
+    params = @power_search.parse_search_options(:year => 2008)
     params.should include("year=2008")
   end
 
   it "should parse year range option" do
-    params = @imdb.parse_power_search_options(:year => 2000..2005)
+    params = @power_search.parse_search_options(:year => 2000..2005)
     params.should include("year_lo=2000")
     params.should include("year_hi=2005")
   end
 
   it "should parse rating option" do
-    params = @imdb.parse_power_search_options(:rating => 6)
+    params = @power_search.parse_search_options(:rating => 6)
     params.should include("lo-rating=6")
     params.should include("hi-rating=10")
   end
 
   it "should parse rating range option" do
-    params = @imdb.parse_power_search_options(:rating => 1..5)
+    params = @power_search.parse_search_options(:rating => 1..5)
     params.should include("lo-rating=1")
     params.should include("hi-rating=5")
   end
 
   it "should parse votes option" do
-    params = @imdb.parse_power_search_options(:votes => 1000)
+    params = @power_search.parse_search_options(:votes => 1000)
     params.should include("votes=1000")
   end
 
   it "should parse keywords option" do
-    params = @imdb.parse_power_search_options(:title_keywords => "a b c")
+    params = @power_search.parse_search_options(:title_keywords => "a b c")
     params.should include("words=a b c")
   end
 end
 
-describe IMDB, "using babylon.html fixture" do
+describe IMDB::PowerSearch, "using babylon.html fixture" do
   before do
-    @imdb = IMDB.new
+    @power_search = IMDB::PowerSearch.new
     @babylon = open(File.dirname(__FILE__) + "/../fixtures/babylon.html")
-    @headers = IMDB::HEADERS
-    @imdb.stub!(:open).and_return(@babylon)
+    @power_search.stub!(:open).and_return(@babylon)
   end
 
   it "should parse HTML and return hash" do
-    movies = @imdb.movies
+    movies = @power_search.search(:only => :movie)
     movies.should have_key(:query)
     movies.should have_key(:results)
     results = movies[:results]
@@ -73,29 +72,29 @@ describe IMDB, "using babylon.html fixture" do
   end
 end
 
-describe IMDB, "using notfound.html fixture" do
+describe IMDB::PowerSearch, "using notfound.html fixture" do
   before do
-    @imdb = IMDB.new
+    @power_search = IMDB::PowerSearch.new
     @not_found = open(File.dirname(__FILE__) + "/../fixtures/notfound.html")
-    @imdb.stub!(:open).and_return(@not_found)
+    @power_search.stub!(:open).and_return(@not_found)
   end
 
   it "should parse HTML and return hash" do
-    movies = @imdb.movies
+    movies = @power_search.search(:only => :movie)
     movies.should have_key(:query)
     movies.should have_key(:results)
     movies[:results].should be_empty
   end
 end
 
-describe IMDB, "using monkeys.html fixture" do
+describe IMDB::PowerSearch, "using monkeys.html fixture" do
   before do
-    @imdb = IMDB.new
-    @imdb.stub!(:open).and_return(open(File.dirname(__FILE__) + "/../fixtures/monkeys.html"))
+    @power_search = IMDB::PowerSearch.new
+    @power_search.stub!(:open).and_return(open(File.dirname(__FILE__) + "/../fixtures/monkeys.html"))
   end
 
   it "should parse HTML and return hash" do
-    movies = @imdb.power_search(:only => :tv_movie)
+    movies = @power_search.search(:only => :tv_movie)
     movies.should have_key(:query)
     movies.should have_key(:results)
     results = movies[:results]
