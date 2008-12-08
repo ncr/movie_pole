@@ -11,6 +11,8 @@
         %h1 Movie Pole
 
       #bd
+        = flash[:notice]
+        = flash[:error]
         = yield
 
       #ft

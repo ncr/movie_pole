@@ -2,8 +2,9 @@ require "rubygems"
 require "open-uri"
 require "hpricot"
 
-require "lib/power_search"
-require "lib/now_playing"
+require "backends/imdb/lib/power_search"
+require "backends/imdb/lib/now_playing"
+require "backends/imdb/lib/full_information"
 
 module IMDB
   BASE_URI = "http://www.imdb.com"

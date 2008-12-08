@@ -1,0 +1,21 @@
+%h2 Full movie info
+
+%label{ :for => 'Ttile'}
+  Title::
+= @movie.title
+%br
+%label{ :for => 'Imdb Id'}
+  IMDB Id:
+= @movie.imdb_id
+%br
+%label{ :for => 'Votes'}
+  Votes:
+= @movie.votes
+%br
+%label{ :for => 'Year'}
+  Year:
+= @movie.year
+%br
+
+= link_to 'Back', movies_path
+
