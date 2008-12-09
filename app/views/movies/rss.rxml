@@ -1,0 +1,19 @@
+xml.instruct! :xml, :version=>"1.0"
+xml.rss(:version=>"2.0"){
+  xml.channel{
+    xml.title("yourTitle")
+    xml.link("http://www.yourDomain.com")
+    xml.description("yourDescription")
+    xml.language("yourLanguage(e.g.:'de-de')")
+    for movie in @movies
+      xml.item do
+        xml.title(movie.title)
+        xml.description(movie.imdb_id)
+        # rfc822
+        xml.pubDate(movie.date.rfc2822)
+      xml.link("www.localhost/movies/")
+      xml.guid("http://www.yourDomain.com/linkToYourPost")
+      end
+    end
+  }
+}
