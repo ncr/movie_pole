@@ -54,11 +54,26 @@ class PirateBay
 		tab = []
 		list_item.each_child_with_index do |element, index|
 			tab << element.at("a")["href"] if index == 7
-			tab << element.inner_text.gsub("?", " ") if index == 9
+			tab << parse_bytes( element.inner_text.gsub("?", " ")) if index == 9
 			tab << element.inner_text.to_i if index == 11
 			tab << element.inner_text.to_i if index == 13
 		end
 		tab
+	end
+	
+	def parse_bytes (string)
+		unit = string[-3, 3].downcase
+		value = string[/\d+(?:\.\d+)?/].to_f
+		case unit
+		when "kib"
+			(value * 1024).round
+		when "mib"
+			(value * 1048576).round
+		when "gib"
+			(value * 1073741824).round
+		else
+			nil
+		end
 	end
 
 end

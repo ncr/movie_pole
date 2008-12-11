@@ -13,12 +13,12 @@ describe PirateBay do
 
   it "should parse sort_by name " do
     params = @pirate.parse_search_options(:sort_by => :name)
-    params.should include("1")
+    params[1].should == "1"
   end
 
 	it "should parse default sorting" do
     params = @pirate.parse_search_options(:title => "something")
-    params.should include("9")
+    params[2].should == "9"
   end
 end
 
