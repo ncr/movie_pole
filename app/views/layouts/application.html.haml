@@ -5,6 +5,7 @@
     %title Movie Pole
     = stylesheet_link_tag "application"
     = javascript_include_tag :defaults
+    = auto_discovery_link_tag(:rss, movies_path(:format => :rss))
   %body
     #doc
       #hd

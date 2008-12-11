@@ -7,21 +7,5 @@ class MoviesController < ApplicationController
   def show
     @movie = Movie.find(params[:id])
   end
-
-  def fetch
-    count = Movie.fetch_from_this_month
-    if count == 0
-      flash[:notice] = "Nothing new, sorry!"
-    else
-      flash[:notice] = "I've got #{count} movies!"
-    end
-    redirect_to movies_path
-  end
-
-  def rss
-    headers["Content-Type"] = "application/xml"
-    @movies = Movie.all
-    render :layout => false
-  end
   
 end

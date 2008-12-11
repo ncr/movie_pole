@@ -1,32 +1,10 @@
-class Movie < ActiveRecord::Base
-  named_scope :recent, lambda { {:conditions => ['created_at > ?', 5.days.ago]}}
+class Movie < ActiveRecord::Base 
 
-  belongs_to :genre
+  has_many :torrents
   
   validates_presence_of :title, :imdb_id
-  validates_uniqueness_of :imdb_id, :title
-
-  def self.fetch_from_this_month
-    movies = []
-    ids = Movie.latest_ids
-    # sciagamy pełne informacje o filmach
-    imdb = IMDB::FullInformation.new
-    ids.each {|imdb_id| movies << imdb.information(imdb_id)[:result] }
-    Movie.bulk_save(movies) # zapis w bazie
-  end
-
-  def self.latest_ids
-    # sciagamy idki imdb nowosci z tego miesiaca
-    IMDB::NowPlaying.new.movies(Time.now.year, Time.now.month)[:results].map{|movie| movie[:imdb_id]}
-  end
-
-  protected
-
-  def self.bulk_save(movies = nil)
-    count = 0
-    movies[0..100].each { |m| count +=1 if Movie.create(:title => m[:title], :imdb_id => m[:imdb_id]).valid? }
-    count
-  end
+  validates_uniqueness_of :imdb_id
+  validates_numericality_of [:votes,:rating, :year]
 
   def self.fake_movies
     {:query=>{:month=>6, :year=>2008}, :results=>[{:imdb_id=>"0960144", :title=>"You Don't Mess with the Zohan"}, {:imdb_id=>"0416044", :title=>"Mongol"},
