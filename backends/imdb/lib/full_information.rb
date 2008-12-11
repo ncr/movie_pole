@@ -16,6 +16,7 @@ module IMDB
       info[:release_date] = parse_release_date(main_div)
       info[:genres] = parse_genres(main_div)
       info[:tagline] = parse_tagline(main_div)
+      info[:imdb_id] = imdb_id
       result[:result] = info
       result
     end

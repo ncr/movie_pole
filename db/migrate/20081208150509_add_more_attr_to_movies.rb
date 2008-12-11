@@ -4,7 +4,7 @@ class AddMoreAttrToMovies < ActiveRecord::Migration
     add_column :movies, :rating, :integer
     add_column :movies, :votes, :integer    
     add_column :movies, :genre_id, :integer
-    add_column :movies, :imdb_id, :integer    
+    add_column :movies, :imdb_id, :integer  
   end
 
   def self.down

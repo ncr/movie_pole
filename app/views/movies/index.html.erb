@@ -1,0 +1,8 @@
+<h2>
+  <%= I18n.t(:movies) %>
+</h2>
+<%- @movies.each do |movie| %>
+   <hr>
+  <p>Title: <%= link_to movie.title, movie_path(movie) %></p>
+  <p>IMDB Id: <%= link_to movie.imdb_id, imdb_url(movie.imdb_id) %></p>
+<%- end %>
