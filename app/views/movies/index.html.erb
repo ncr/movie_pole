@@ -3,6 +3,9 @@
 </h2>
 <%- @movies.each do |movie| %>
    <hr>
-  <p>Title: <%= link_to movie.title, movie_path(movie) %></p>
-  <p>IMDB Id: <%= link_to movie.imdb_id, imdb_url(movie.imdb_id) %></p>
+  Title: <%= link_to movie.title, movie_path(movie) %> |
+  IMDB Id: <%= link_to movie.imdb_id, imdb_url(movie.imdb_id) %> |
+  <%- if movie.torrents.count > 0 %>
+    Torrents avaiable!
+    <%- end %>
 <%- end %>

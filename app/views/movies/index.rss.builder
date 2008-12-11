@@ -8,7 +8,6 @@ xml.rss("version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/") do
       xml.item do
         xml.pubDate movie.created_at.rfc822
         xml.title h(movie.title)
-        xml.imdb_id movie.imdb_id
         xml.description do
           xml << h(render(:partial => movie))
         end

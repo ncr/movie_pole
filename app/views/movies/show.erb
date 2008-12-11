@@ -1,12 +1,9 @@
-<p>Title: <%= @movie.title %></p>
-<p>Imdb id: <%= @movie.imdb_id %></p>
-<p>Votes: <%= @movie.votes %></p>
-<p>Year: <%= @movie.year %></p>
-<hr>
+<%= render :partial => @movie %>
+<b>Avaiable torrents:</b>
 <% @movie.torrents.each do |torrent| %>
-  
+  <%= render :partial => torrent %>
 <%- end %>
-
+<hr>
 <%=  link_to 'Back', movies_path %>
 
 

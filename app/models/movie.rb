@@ -1,10 +1,19 @@
 class Movie < ActiveRecord::Base 
-
+  named_scope :most_voted, :order => "votes desc"
+  named_scope :best_rated, :order => "rating desc"
+  # named_scope :with_most_torrent
+  
   has_many :torrents
   
   validates_presence_of :title, :imdb_id
   validates_uniqueness_of :imdb_id
   validates_numericality_of [:votes,:rating, :year]
+
+  def update_torrent
+    Mininova.new.from_imdb(imdb_id)[:results][0..5].each do |torrent|
+      self.torrents.create(:title => title, :url => torrent[:file])
+    end
+  end
 
   def self.fake_movies
     {:query=>{:month=>6, :year=>2008}, :results=>[{:imdb_id=>"0960144", :title=>"You Don't Mess with the Zohan"}, {:imdb_id=>"0416044", :title=>"Mongol"},

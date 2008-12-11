@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081208153310) do
+ActiveRecord::Schema.define(:version => 20081211160533) do
 
   create_table "genres", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(:version => 20081208153310) do
     t.integer  "votes"
     t.integer  "genre_id"
     t.integer  "imdb_id"
+  end
+
+  create_table "torrents", :force => true do |t|
+    t.string   "title"
+    t.string   "about"
+    t.string   "url"
+    t.string   "size"
+    t.integer  "seeders"
+    t.integer  "leechers"
+    t.integer  "movie_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

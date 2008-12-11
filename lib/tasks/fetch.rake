@@ -14,11 +14,13 @@ namespace :fetch do
   end
 
   desc 'Fetch torrents'
-  task :torrents => :prepare do    
+  task :torrents => :prepare do
+    update_all_torrents
   end
 
   def fetch_movies_from_this_month    
-    movies = current_month_imdb_ids.flatten.map {|id| @full_info.information(id)[:result] }
+    ids = current_month_imdb_ids.reject{|id| Movie.find_by_id(id)}
+    movies = ids.flatten.map {|id| @full_info.information(id)[:result] }
     bulk_save_movies(movies)
   end
 
@@ -28,11 +30,21 @@ namespace :fetch do
   end
 
   def bulk_save_movies(movies = [])
-    puts "..bulk_save_movies.."
+    puts "..bulk_save_movies.."    
     movies.each do |m|
-      Movie.create!(:title => m[:title], :imdb_id => m[:imdb_id].to_i, :rating => m[:rating].to_i, :votes => m[:votes].to_i, :year => m[:year])
-    end
+      Movie.create do |movie|
+        movie.title = m[:title]
+        movie.imdb_id = m[:imdb_id].to_i
+        movie.rating = m[:rating].to_i
+        movie.votes = m[:votes].to_i
+        movie.year = m[:year].to_i
+      end
+    end    
   end
 
+  def update_all_torrents
+    puts "..update_all_torrents.."
+    Movie.all.each { |m| m.update_torrent }
+  end
 end
 
