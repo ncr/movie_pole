@@ -5,3 +5,4 @@ log/*.log
 public/stylesheets/*.css
 tmp/**/*
 nbproject/**/*
+vendor/rails/

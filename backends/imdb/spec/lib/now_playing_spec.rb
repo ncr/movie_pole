@@ -10,8 +10,6 @@ describe IMDB::NowPlaying, "with 2009-07 fixture" do
   it "should parse HTML and return hash with query" do
     result = @now_playing.movies(2009, 07)
     result.should include(:query)
-    result[:query].should include(:month)
-    result[:query].should include(:year)
   end
 
   it "should parse HTML and return hash with results" do

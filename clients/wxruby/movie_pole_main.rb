@@ -22,7 +22,8 @@ class MoviePoleMain < Wx::Frame
     @refresh.disable
     Thread.new do
       begin
-        @feed = FeedNormalizer::FeedNormalizer.parse open("http://apidock.com/notes.rss")
+        @feed = FeedNormalizer::FeedNormalizer.parse open("http://localhost:3000/movies.rss")
+	   puts @feed
         @feed_list.selection = -1 # due to problems with changing list with selection
         @feed_list.set @feed.entries.map(&:title)
       ensure
